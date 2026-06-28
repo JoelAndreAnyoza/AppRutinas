@@ -2,4 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--COLORES MODULO 3-->
+   <color name="fondoApp">#F3F4F8</color>
+   <color name="textoPrincipal">#2C2C3A</color>
+   <color name="textoSecundario">#6B6B7A</color>
+   <color name="moradoIntenso">#6A1B9A</color>
+   <color name="moradoSuave">#B39DDB</color>
+   <color name="verdeP">#2E7D32</color>
+   <color name="energia">#FF6D00</color>
+   <color name="focus">#FBC02D</color>
+   <color name="alerta">#C62828</color>
+   <color name="pendiente">#BDBDBD</color>
+   <color name="info">#0288D1</color>
+    <!--COLORES MODULO 3-->
+
 </resources>
