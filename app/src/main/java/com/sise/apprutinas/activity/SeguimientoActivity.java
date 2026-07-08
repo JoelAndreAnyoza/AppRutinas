@@ -25,7 +25,7 @@ import com.sise.apprutinas.model.Ejercicio;
 import com.sise.apprutinas.R;
 import com.sise.apprutinas.utils.Rutinas;
 
-public class SeguimientoActivity extends AppCompatActivity {
+public class    SeguimientoActivity extends AppCompatActivity {
     Spinner spinnerDia;
     TextView tvNivelSeleccionado;
     TextView tvCompletado;

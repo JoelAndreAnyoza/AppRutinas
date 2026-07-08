@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.sise.apprutinas.activity.PerfilActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -57,9 +58,15 @@ public class LoginActivity extends AppCompatActivity {
                 if (user.email.equals(email) && user.password.equals(password)) {
                     found = true;
 
-                    Intent intent = new Intent(LoginActivity.this, HomeMockActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, PerfilActivity.class);
                     intent.putExtra("USER_TYPE", user.type);
                     intent.putExtra("USER_NAME", user.name);
+
+                    getSharedPreferences("perfil", MODE_PRIVATE)
+                            .edit()
+                            .putString("USER_TYPE", user.type)
+                            .apply();
+
                     startActivity(intent);
                     finish();
                     break;

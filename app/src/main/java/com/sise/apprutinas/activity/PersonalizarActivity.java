@@ -26,10 +26,20 @@ public class PersonalizarActivity extends AppCompatActivity {
     Button btnGuardar;
     int nivelSeleccionado = 1;
 
+    private String userType = "GRATUITO";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personalizar);
+
+        if (getIntent().hasExtra("USER_TYPE")) {
+            userType = getIntent().getStringExtra("USER_TYPE");
+        } else {
+
+            userType = getSharedPreferences("perfil", MODE_PRIVATE).getString("USER_TYPE", "GRATUITO");
+        }
+
         tvNivel = findViewById(R.id.tvNivel);
         etPeso = findViewById(R.id.etPeso);
         etAltura = findViewById(R.id.etAltura);
@@ -44,8 +54,23 @@ public class PersonalizarActivity extends AppCompatActivity {
         sbNivel.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                nivelSeleccionado = progress + 1;
-                tvNivel.setText("Nivel: " + nivelSeleccionado);
+                int nivelIntentado = progress + 1;
+
+
+                if (!"PREMIUM".equalsIgnoreCase(userType) && nivelIntentado > 6) {
+                    seekBar.setProgress(5);
+                    nivelSeleccionado = 6;
+                    tvNivel.setText("Nivel: 6");
+
+                    if (fromUser) {
+                        Toast.makeText(PersonalizarActivity.this,
+                                "Debes ser usuario PREMIUM para acceder a los niveles +6",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    nivelSeleccionado = nivelIntentado;
+                    tvNivel.setText("Nivel: " + nivelSeleccionado);
+                }
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
