@@ -4,92 +4,117 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/fondoApp">
+    android:background="@color/fondo">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/moradoIntenso"
+        android:background="@color/principal"
         android:gravity="center_vertical"
         android:padding="16dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Seguimiento"
-            android:textColor="@color/white"
+            android:text="Seguimiento semanal"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"/>
-
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:orientation="horizontal"
-        android:background="@color/moradoSuave">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Día:"
-            android:textColor="@color/textoPrincipal"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_marginEnd="8dp"/>
-
-        <Spinner
-            android:id="@+id/spinnerDia"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvNivel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nivel seleccionado: -"
-        android:textColor="@color/textoPrincipal"
-        android:padding="12dp"
-        android:background="@color/white"/>
-
-    <TextView
-        android:id="@+id/tvTipoRutina"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Rutina: -"
-        android:textColor="@color/textoSecundario"
-        android:paddingLeft="12dp"
-        android:paddingBottom="12dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/containerEjercicios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Día:"
+                    android:textColor="@color/textoPrincipal"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="8dp"/>
+
+                <Spinner
+                    android:id="@+id/spinnerDia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvNivelSeleccionado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nivel: -"
+                android:textColor="@android:color/white"
+                android:background="@color/principal"
+                android:padding="12dp"
+                android:gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/principal"
+                    android:layout_marginBottom="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvEtapas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rutina del día"
+                    android:textColor="@color/textoPrincipal"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:layout_marginBottom="15dp" />
+
+                <LinearLayout
+                    android:id="@+id/contEjercicios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+                <TextView
+                    android:id="@+id/tvCompletado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textColor="@color/principal"
+                    android:gravity="center"
+                    android:layout_marginTop="15dp"/>
+
+                <Button
+                    android:id="@+id/btnAgregarEjercicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="20dp"
+                    android:text="+ Agregar ejercicio personal"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/principal"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnAgregar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="+ Agregar ejercicio personal"
-        android:backgroundTint="@color/moradoIntenso"
-        android:textColor="@color/white"
-        android:layout_marginTop="4dp"/>
-
 </LinearLayout>
-
-
-

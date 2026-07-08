@@ -7,13 +7,6 @@
     android:padding="12dp"
     android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/imgEjercicio"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_marginEnd="12dp" />
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -21,38 +14,43 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvNombre"
+            android:id="@+id/tvNombreEjercicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ejercicio"
+            android:text="Etapa 1 - Ejercicio"
+            android:textColor="@color/textoPrincipal"
             android:textStyle="bold"
-            android:textColor="@color/textoPrincipal" />
-
-        <TextView
-            android:id="@+id/tvInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Info"
-            android:textColor="@color/textoSecundario" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tvTiempo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tiempo"
-            android:textColor="@color/textoSecundario" />
+            android:text="Tiempo: 10 min"
+            android:textColor="@color/textoSecundario"
+            android:textSize="13sp"/>
 
-        <Button
-            android:id="@+id/btnCompletar"
+        <TextView
+            android:id="@+id/tvTips"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:text="Completar"
-            android:backgroundTint="@color/verdeP"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content"
+            android:text="Consejo"
+            android:textColor="@color/textoSecundario"
+            android:textSize="12sp"/>
 
     </LinearLayout>
 
+    <VideoView
+        android:id="@+id/videoEjercicio"
+        android:layout_width="90dp"
+        android:layout_height="90dp"/>
+
+    <CheckBox
+        android:id="@+id/cbEjercicioCompletado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"/>
+
 </LinearLayout>
-
-
 
