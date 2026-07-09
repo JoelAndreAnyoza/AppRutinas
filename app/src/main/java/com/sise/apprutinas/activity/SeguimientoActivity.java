@@ -65,8 +65,7 @@ public class    SeguimientoActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        String tipoUsuario = getSharedPreferences("perfil", MODE_PRIVATE)
-                .getString("tipoUsuario", "GRATUITO");
+        String tipoUsuario = getSharedPreferences("perfil", MODE_PRIVATE).getString("tipoUsuario", "GRATUITO");
         if (tipoUsuario.equals("GRATUITO")) {
             btnAgregarEjercicio.setEnabled(false);
             btnAgregarEjercicio.setText("Agregar ejercicio Premium 🔒");

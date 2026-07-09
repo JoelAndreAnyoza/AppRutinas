@@ -52,13 +52,6 @@ public class PerfilActivity extends AppCompatActivity {
 
         });
 
-        String tipoUsuario = getSharedPreferences("perfil", MODE_PRIVATE)
-                .getString("tipoUsuario", "GRATUITO");
-        if (tipoUsuario.equals("GRATUITO")) {
-            btnPersonalizarRutina.setEnabled(false);
-            btnPersonalizarRutina.setText("Personalización Premium 🔒");
-        }
-
         btnPersonalizarRutina.setOnClickListener(v -> {
             Intent intent = new Intent(PerfilActivity.this, PersonalizarActivity.class);
             startActivity(intent);
