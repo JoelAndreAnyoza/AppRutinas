@@ -14,6 +14,7 @@ import com.sise.apprutinas.activity.PerfilActivity;
 import com.sise.apprutinas.activity.SeguimientoActivity;
 
 public class HomeMockActivity extends AppCompatActivity {
+
     TextView tvWelcome, tvMensajeInicio, tvPremiumBloqueado;
     LinearLayout layoutBienvenida, layoutInicio;
     Button btnInicio, btnSeguimiento, btnPerfil;
@@ -32,16 +33,17 @@ public class HomeMockActivity extends AppCompatActivity {
         btnInicio = findViewById(R.id.btnInicio);
         btnSeguimiento = findViewById(R.id.btnSeguimiento);
         btnPerfil = findViewById(R.id.btnPerfil);
+
         userName = getIntent().getStringExtra("USER_NAME");
         userType = getIntent().getStringExtra("USER_TYPE");
 
         tvWelcome.setText("¡Hola, " + userName + "!\nCuenta: " + userType);
 
         if ("GRATUITO".equals(userType)) {
-            tvMensajeInicio.setText("Tu cuenta tiene una rutina predeterminada.");
+            tvMensajeInicio.setText("Tu cuenta tiene funciones limitadas.");
             tvPremiumBloqueado.setVisibility(View.VISIBLE);
         } else {
-            tvMensajeInicio.setText("Tienes acceso a personalizar tu rutina.");
+            tvMensajeInicio.setText("Tienes acceso completo a tus rutinas.");
             tvPremiumBloqueado.setVisibility(View.GONE);
         }
 
@@ -51,7 +53,6 @@ public class HomeMockActivity extends AppCompatActivity {
         }, 3000);
 
         btnInicio.setOnClickListener(v -> {
-
         });
 
         btnSeguimiento.setOnClickListener(v -> {

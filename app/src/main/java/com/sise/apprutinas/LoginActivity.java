@@ -47,10 +47,12 @@ public class LoginActivity extends AppCompatActivity {
     private void loginUser(String email, String password) {
         try {
             boolean found = false;
+
             if (UserDatabase.users == null) {
                 Toast.makeText(this, "Error: Base de datos en RAM no inicializada", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             for (UserDatabase.User user : UserDatabase.users) {
                 if (user.email.equals(email) && user.password.equals(password)) {
                     found = true;
@@ -58,24 +60,26 @@ public class LoginActivity extends AppCompatActivity {
                     getSharedPreferences("perfil", MODE_PRIVATE)
                             .edit()
                             .putString("tipoUsuario", user.type)
+                            .putString("USER_TYPE", user.type)
                             .apply();
 
                     Intent intent = new Intent(LoginActivity.this, HomeMockActivity.class);
                     intent.putExtra("USER_TYPE", user.type);
                     intent.putExtra("USER_NAME", user.name);
+
                     startActivity(intent);
                     finish();
                     break;
                 }
             }
+
             if (!found) {
                 Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
             }
+
         } catch (Exception e) {
             Toast.makeText(this, "Error en Login: " + e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
-
-
 }
