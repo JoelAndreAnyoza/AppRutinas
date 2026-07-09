@@ -1,5 +1,6 @@
 package com.sise.apprutinas.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,7 @@ public class SeguimientoActivity extends AppCompatActivity {
     TextView tvNivelSeleccionado;
     TextView tvCompletado;
     Button btnAgregarEjercicio;
+    Button btnInicio, btnSeguimiento, btnPerfil;
     LinearLayout contEjercicios;
     int nivelSeleccionado;
     String sexo;
@@ -46,6 +48,30 @@ public class SeguimientoActivity extends AppCompatActivity {
         tvNivelSeleccionado = findViewById(R.id.tvNivelSeleccionado);
         tvCompletado = findViewById(R.id.tvCompletado);
         btnAgregarEjercicio = findViewById(R.id.btnAgregarEjercicio);
+
+        btnInicio = findViewById(R.id.btnInicio);
+        btnSeguimiento = findViewById(R.id.btnSeguimiento);
+        btnPerfil = findViewById(R.id.btnPerfil);
+        btnSeguimiento.setTextColor(getResources().getColor(R.color.principal));
+        btnInicio.setOnClickListener(v -> {
+            finish();
+        });
+
+        btnSeguimiento.setOnClickListener(v -> {
+        });
+
+        btnPerfil.setOnClickListener(v -> {
+            Intent intent = new Intent(SeguimientoActivity.this, PerfilActivity.class);
+            startActivity(intent);
+        });
+
+        String tipoUsuario = getSharedPreferences("perfil", MODE_PRIVATE)
+                .getString("tipoUsuario", "GRATUITO");
+        if (tipoUsuario.equals("GRATUITO")) {
+            btnAgregarEjercicio.setEnabled(false);
+            btnAgregarEjercicio.setText("Agregar ejercicio Premium 🔒");
+        }
+
         contEjercicios = findViewById(R.id.contEjercicios);
 
         String dias[] = {

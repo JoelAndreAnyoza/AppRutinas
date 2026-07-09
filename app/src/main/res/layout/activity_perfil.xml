@@ -27,64 +27,68 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="18dp">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/focus"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:background="@color/focus" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
             android:text="Peso:"
             android:textColor="#283046"
-            android:textSize="16sp"
-            android:layout_marginBottom="6dp"/>
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvPeso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="-"
-            android:textColor="#283046"
-            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
             android:background="#F3F3F3"
             android:padding="10dp"
-            android:layout_marginBottom="16dp"/>
+            android:text="-"
+            android:textColor="#283046"
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
             android:text="Altura:"
             android:textColor="#283046"
-            android:textSize="16sp"
-            android:layout_marginBottom="6dp"/>
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvAltura"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="-"
-            android:textColor="#283046"
-            android:textSize="16sp"
+            android:layout_marginBottom="30dp"
             android:background="#F3F3F3"
             android:padding="10dp"
-            android:layout_marginBottom="30dp"/>
+            android:text="-"
+            android:textColor="#283046"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnPersonalizarRutina"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:backgroundTint="@color/focus"
             android:text="Personalizar rutina"
-            android:textSize="16sp"
             android:textColor="@color/white"
-            android:backgroundTint="@color/focus"/>
+            android:textSize="16sp" />
 
     </LinearLayout>
+
+    <include
+        layout="@layout/barra_navegacion"/>
 
 </LinearLayout>

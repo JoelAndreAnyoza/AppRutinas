@@ -1,23 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center">
+    android:background="@color/fondo">
 
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenido al Home Temporal"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp" />
-
-    <Button
-        android:id="@+id/btnPremiumFeature"
+    <LinearLayout
+        android:id="@+id/layoutBienvenida"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Rutinas Avanzadas (Solo Premium)" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bienvenido"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutInicio"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvTituloInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inicio"
+            android:textColor="@color/textoPrincipal"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/tvMensajeInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hoy es un buen día para avanzar con tu rutina."
+            android:textColor="@color/textoSecundario"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tvPremiumBloqueado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Función Premium 🔒 Bloqueada"
+            android:textColor="@color/principal"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="12dp"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+
+    <include
+        layout="@layout/barra_navegacion"/>
+
 </LinearLayout>

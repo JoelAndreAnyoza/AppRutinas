@@ -11,7 +11,7 @@ import com.sise.apprutinas.R;
 
 public class PerfilActivity extends AppCompatActivity {
     TextView tvPeso, tvAltura;
-    Button btnPersonalizarRutina;
+    Button btnPersonalizarRutina, btnInicio, btnSeguimiento, btnPerfil;
 
     @Override
     protected void onResume() {
@@ -33,6 +33,31 @@ public class PerfilActivity extends AppCompatActivity {
         tvPeso = findViewById(R.id.tvPeso);
         tvAltura = findViewById(R.id.tvAltura);
         btnPersonalizarRutina = findViewById(R.id.btnPersonalizarRutina);
+
+        btnInicio = findViewById(R.id.btnInicio);
+        btnSeguimiento = findViewById(R.id.btnSeguimiento);
+        btnPerfil = findViewById(R.id.btnPerfil);
+
+        btnPerfil.setTextColor(getResources().getColor(R.color.principal));
+
+        btnInicio.setOnClickListener(v -> {
+            finish();
+        });
+        btnSeguimiento.setOnClickListener(v -> {
+            Intent intent = new Intent(PerfilActivity.this, SeguimientoActivity.class);
+            startActivity(intent);
+        });
+
+        btnPerfil.setOnClickListener(v -> {
+
+        });
+
+        String tipoUsuario = getSharedPreferences("perfil", MODE_PRIVATE)
+                .getString("tipoUsuario", "GRATUITO");
+        if (tipoUsuario.equals("GRATUITO")) {
+            btnPersonalizarRutina.setEnabled(false);
+            btnPersonalizarRutina.setText("Personalización Premium 🔒");
+        }
 
         btnPersonalizarRutina.setOnClickListener(v -> {
             Intent intent = new Intent(PerfilActivity.this, PersonalizarActivity.class);
