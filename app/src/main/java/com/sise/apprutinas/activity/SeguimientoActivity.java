@@ -207,8 +207,19 @@ public class    SeguimientoActivity extends AppCompatActivity {
         if (completo && contEjercicios.getChildCount() > 0) {
             tvCompletado.setText("🎉 ¡Rutina completada!");
             Toast.makeText(this, "¡Rutina completada!", Toast.LENGTH_LONG).show();
+
+            String diaSeleccionado = spinnerDia.getSelectedItem().toString();
+            getSharedPreferences("perfil", MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("completado_" + diaSeleccionado, true)
+                    .apply();
         } else {
             tvCompletado.setText("");
+            String diaSeleccionado = spinnerDia.getSelectedItem().toString();
+            getSharedPreferences("perfil", MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("completado_" + diaSeleccionado, false)
+                    .apply();
         }
     }
     private void cargarEjercicios() {

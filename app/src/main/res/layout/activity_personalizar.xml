@@ -147,8 +147,5 @@
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>
-
     </LinearLayout>
-
-
 </ScrollView>
