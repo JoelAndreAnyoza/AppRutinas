@@ -5,6 +5,7 @@ public class Ejercicio {
     private String consejo;
     private int videoHombre;
     private int videoMujer;
+    private boolean completado;
 
     public Ejercicio(String nombre, String tiempo, String consejo, int videoHombre, int videoMujer) {
         this.nombre = nombre;
@@ -12,6 +13,7 @@ public class Ejercicio {
         this.consejo = consejo;
         this.videoHombre = videoHombre;
         this.videoMujer = videoMujer;
+        this.completado = false;
     }
 
     public String getNombre() {
@@ -32,6 +34,12 @@ public class Ejercicio {
 
     public int getVideoMujer() {
         return videoMujer;
+    }
+    public boolean isCompletado() {
+        return completado;
+    }
+    public void setCompletado(boolean completado) {
+        this.completado = completado;
     }
 }
 

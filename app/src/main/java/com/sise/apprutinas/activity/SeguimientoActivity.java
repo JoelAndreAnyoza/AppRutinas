@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import android.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,6 +39,7 @@ public class    SeguimientoActivity extends AppCompatActivity {
     ArrayList<Ejercicio> rutina = new ArrayList<>();
     ArrayList<Ejercicio> listaEjerciciosCompletos = new ArrayList<>();
     ArrayList<String> listaEjercicios = new ArrayList<>();
+    HashMap<String, ArrayList<Ejercicio>> rutinasGuardadas = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,13 @@ public class    SeguimientoActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                rutina = Rutinas.obtenerRutina(nivelSeleccionado, dias[position]);
+                String clave = nivelSeleccionado + "-" + dias[position];
+                if (rutinasGuardadas.containsKey(clave)) {
+                    rutina = rutinasGuardadas.get(clave);
+                } else {
+                    rutina = Rutinas.obtenerRutina(nivelSeleccionado, dias[position]);
+                    rutinasGuardadas.put(clave, rutina);
+                }
 
                 mostrarRutina();
 
@@ -161,6 +169,14 @@ public class    SeguimientoActivity extends AppCompatActivity {
             TextView tvTips = vista.findViewById(R.id.tvTips);
             VideoView video = vista.findViewById(R.id.videoEjercicio);
             CheckBox check = vista.findViewById(R.id.cbEjercicioCompletado);
+            check.setChecked(ejercicio.isCompletado());
+            if (ejercicio.isCompletado()) {
+                tvNombre.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+            } else {
+                tvNombre.setTextColor(getResources().getColor(R.color.textoPrincipal));
+            }
+
+            check.setChecked(ejercicio.isCompletado());
 
             tvNombre.setText("Etapa " + etapa + " - " + ejercicio.getNombre());
             tvTiempo.setText("Tiempo: " + ejercicio.getTiempo());
@@ -181,15 +197,17 @@ public class    SeguimientoActivity extends AppCompatActivity {
             });
 
             check.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                ejercicio.setCompletado(isChecked);
+
                 if (isChecked) {
-                    tvNombre.setTextColor(
-                            getResources().getColor(android.R.color.holo_green_dark));
+                    tvNombre.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
                 } else {
-                    tvNombre.setTextColor(
-                            getResources().getColor(R.color.textoPrincipal));
+                    tvNombre.setTextColor(getResources().getColor(R.color.textoPrincipal));
                 }
+                
                 verificarRutinaCompletada();
             });
+
             contEjercicios.addView(vista);
             etapa++;
         }
@@ -199,6 +217,8 @@ public class    SeguimientoActivity extends AppCompatActivity {
         for (int i = 0; i < contEjercicios.getChildCount(); i++) {
             View vista = contEjercicios.getChildAt(i);
             CheckBox check = vista.findViewById(R.id.cbEjercicioCompletado);
+
+
             if (!check.isChecked()) {
                 completo = false;
                 break;
@@ -236,7 +256,6 @@ public class    SeguimientoActivity extends AppCompatActivity {
         txtBuscar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
