@@ -88,6 +88,15 @@
                     android:textSize="17sp"
                     android:layout_marginBottom="15dp" />
 
+                <TextView
+                    android:id="@+id/tvProgreso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0/0 ejercicios completados"
+                    android:textColor="@color/textoSecundario"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="15dp"/>
+
                 <LinearLayout
                     android:id="@+id/contEjercicios"
                     android:layout_width="match_parent"

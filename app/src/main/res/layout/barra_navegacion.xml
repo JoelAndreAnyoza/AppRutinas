@@ -4,43 +4,90 @@
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:orientation="horizontal"
-    android:background="@android:color/white"
-    >
+    android:background="@android:color/white">
 
-    <Button
+    <LinearLayout
         android:id="@+id/btnInicio"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:text="🏠\nInicio"
-        android:textAllCaps="false"
-        android:textColor="@color/textoSecundario"
-        android:textSize="13sp"
-        android:textStyle="bold"/>
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
+        <TextView
+            android:id="@+id/tvInicioNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🏠\nInicio"
+            android:textColor="@color/textoSecundario"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <View
+            android:id="@+id/lineInicio"
+            android:layout_width="45dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/principal"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/btnSeguimiento"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:text="💪\nRutina"
-        android:textAllCaps="false"
-        android:textColor="@color/textoSecundario"
-        android:textSize="13sp"
-        android:textStyle="bold"/>
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
+        <TextView
+            android:id="@+id/tvSeguimientoNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="💪\nRutina"
+            android:textColor="@color/textoSecundario"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <View
+            android:id="@+id/lineSeguimiento"
+            android:layout_width="45dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/principal"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/btnPerfil"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:text="👤\nPerfil"
-        android:textAllCaps="false"
-        android:textColor="@color/textoSecundario"
-        android:textSize="13sp"
-        android:textStyle="bold"/>
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvPerfilNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="👤\nPerfil"
+            android:textColor="@color/textoSecundario"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <View
+            android:id="@+id/linePerfil"
+            android:layout_width="45dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/principal"
+            android:visibility="gone"/>
+
+    </LinearLayout>
 
 </LinearLayout>

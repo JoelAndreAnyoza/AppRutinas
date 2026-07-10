@@ -6,12 +6,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.sise.apprutinas.R;
 
 public class PerfilActivity extends AppCompatActivity {
     TextView tvPeso, tvAltura;
-    Button btnPersonalizarRutina, btnInicio, btnSeguimiento, btnPerfil;
+    Button btnPersonalizarRutina;
+    LinearLayout btnInicio, btnSeguimiento, btnPerfil;
+    TextView tvPerfilNav;
+    View linePerfil;
 
     @Override
     protected void onResume() {
@@ -38,7 +43,11 @@ public class PerfilActivity extends AppCompatActivity {
         btnSeguimiento = findViewById(R.id.btnSeguimiento);
         btnPerfil = findViewById(R.id.btnPerfil);
 
-        btnPerfil.setTextColor(getResources().getColor(R.color.principal));
+        tvPerfilNav = findViewById(R.id.tvPerfilNav);
+        linePerfil = findViewById(R.id.linePerfil);
+
+        tvPerfilNav.setTextColor(getResources().getColor(R.color.principal));
+        linePerfil.setVisibility(View.VISIBLE);
 
         btnInicio.setOnClickListener(v -> {
             finish();

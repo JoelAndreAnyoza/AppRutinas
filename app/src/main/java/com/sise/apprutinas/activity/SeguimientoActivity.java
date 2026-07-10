@@ -23,6 +23,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ListView;
 
+
 import com.sise.apprutinas.model.Ejercicio;
 import com.sise.apprutinas.R;
 import com.sise.apprutinas.utils.Rutinas;
@@ -30,9 +31,11 @@ import com.sise.apprutinas.utils.Rutinas;
 public class    SeguimientoActivity extends AppCompatActivity {
     Spinner spinnerDia;
     TextView tvNivelSeleccionado;
-    TextView tvCompletado;
+    TextView tvCompletado, tvProgreso;
     Button btnAgregarEjercicio;
-    Button btnInicio, btnSeguimiento, btnPerfil;
+    LinearLayout btnInicio, btnSeguimiento, btnPerfil;
+    TextView tvSeguimientoNav;
+    View lineSeguimiento;
     LinearLayout contEjercicios;
     int nivelSeleccionado;
     String sexo;
@@ -49,12 +52,19 @@ public class    SeguimientoActivity extends AppCompatActivity {
         spinnerDia = findViewById(R.id.spinnerDia);
         tvNivelSeleccionado = findViewById(R.id.tvNivelSeleccionado);
         tvCompletado = findViewById(R.id.tvCompletado);
+        tvProgreso = findViewById(R.id.tvProgreso);
         btnAgregarEjercicio = findViewById(R.id.btnAgregarEjercicio);
 
         btnInicio = findViewById(R.id.btnInicio);
         btnSeguimiento = findViewById(R.id.btnSeguimiento);
         btnPerfil = findViewById(R.id.btnPerfil);
-        btnSeguimiento.setTextColor(getResources().getColor(R.color.principal));
+
+        tvSeguimientoNav = findViewById(R.id.tvSeguimientoNav);
+        lineSeguimiento = findViewById(R.id.lineSeguimiento);
+
+        tvSeguimientoNav.setTextColor(getResources().getColor(R.color.principal));
+        lineSeguimiento.setVisibility(View.VISIBLE);
+
         btnInicio.setOnClickListener(v -> {
             finish();
         });
@@ -176,8 +186,6 @@ public class    SeguimientoActivity extends AppCompatActivity {
                 tvNombre.setTextColor(getResources().getColor(R.color.textoPrincipal));
             }
 
-            check.setChecked(ejercicio.isCompletado());
-
             tvNombre.setText("Etapa " + etapa + " - " + ejercicio.getNombre());
             tvTiempo.setText("Tiempo: " + ejercicio.getTiempo());
             tvTips.setText("Consejo: " + ejercicio.getConsejo());
@@ -211,20 +219,23 @@ public class    SeguimientoActivity extends AppCompatActivity {
             contEjercicios.addView(vista);
             etapa++;
         }
+        verificarRutinaCompletada();
     }
     private void verificarRutinaCompletada() {
-        boolean completo = true;
-        for (int i = 0; i < contEjercicios.getChildCount(); i++) {
+        int completados = 0;
+        int total = contEjercicios.getChildCount();
+
+        for (int i = 0; i < total; i++) {
             View vista = contEjercicios.getChildAt(i);
             CheckBox check = vista.findViewById(R.id.cbEjercicioCompletado);
-
-
-            if (!check.isChecked()) {
-                completo = false;
-                break;
+            if (check.isChecked()) {
+                completados++;
             }
         }
-        if (completo && contEjercicios.getChildCount() > 0) {
+
+        tvProgreso.setText(completados + "/" + total + " ejercicios completados");
+
+        if (completados == total && total > 0) {
             tvCompletado.setText("🎉 ¡Rutina completada!");
             Toast.makeText(this, "¡Rutina completada!", Toast.LENGTH_LONG).show();
 
