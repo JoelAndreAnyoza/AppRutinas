@@ -1,4 +1,4 @@
-package com.sise.apprutinas;
+package com.sise.apprutinas.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.sise.apprutinas.activity.PerfilActivity;
-import com.sise.apprutinas.activity.SeguimientoActivity;
+import com.sise.apprutinas.R;
 import com.sise.apprutinas.model.Ejercicio;
 import com.sise.apprutinas.utils.Rutinas;
 
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class HomeMockActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     TextView tvWelcome, tvPremiumBloqueado;
     LinearLayout layoutBienvenida;
@@ -44,7 +43,7 @@ public class HomeMockActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_mock);
+        setContentView(R.layout.activity_home);
 
         tvWelcome = findViewById(R.id.tvWelcome);
         tvPremiumBloqueado = findViewById(R.id.tvPremiumBloqueado);
@@ -105,7 +104,7 @@ public class HomeMockActivity extends AppCompatActivity {
 
         btnSeguimiento.setOnClickListener(v -> {
             Intent intent = new Intent(
-                    HomeMockActivity.this,
+                    HomeActivity.this,
                     SeguimientoActivity.class
             );
 
@@ -115,7 +114,7 @@ public class HomeMockActivity extends AppCompatActivity {
 
         btnPerfil.setOnClickListener(v -> {
             Intent intent = new Intent(
-                    HomeMockActivity.this,
+                    HomeActivity.this,
                     PerfilActivity.class
             );
 
@@ -125,7 +124,7 @@ public class HomeMockActivity extends AppCompatActivity {
 
         btnIniciarEntrenamiento.setOnClickListener(v -> {
             Intent intent = new Intent(
-                    HomeMockActivity.this,
+                    HomeActivity.this,
                     SeguimientoActivity.class
             );
 
@@ -215,15 +214,15 @@ public class HomeMockActivity extends AppCompatActivity {
             if (estaCompletado) {
 
                 diasCompletadosCount++;
-                detalleDias.append(d).append(": Completado\n");
+                detalleDias.append(d).append(":  Completado\n");
 
             } else if (d.equalsIgnoreCase(diaSemana)) {
 
-                detalleDias.append(d).append(": En progreso\n");
+                detalleDias.append(d).append(":  En progreso\n");
 
             } else {
 
-                detalleDias.append(d).append(": Pendiente\n");
+                detalleDias.append(d).append(":  Pendiente\n");
             }
         }
 

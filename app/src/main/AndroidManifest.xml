@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppRutinas">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="true">
 
             <intent-filter>
@@ -24,11 +24,11 @@
         </activity>
 
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:exported="false" />
 
         <activity
-            android:name=".HomeMockActivity"
+            android:name=".activity.HomeActivity"
             android:exported="false" />
 
         <activity
