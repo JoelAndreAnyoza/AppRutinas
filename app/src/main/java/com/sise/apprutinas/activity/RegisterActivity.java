@@ -10,6 +10,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.sise.apprutinas.R;
 import com.sise.apprutinas.model.UserDatabase;
 
+
 public class RegisterActivity extends AppCompatActivity {
 
     private TextInputEditText etName, etEmail, etPassword;

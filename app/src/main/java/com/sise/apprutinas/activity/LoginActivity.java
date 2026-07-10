@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                             .putString("USER_TYPE", user.type)
                             .apply();
 
-                    Intent intent = new Intent(LoginActivity.this, HomeMockActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.putExtra("USER_TYPE", user.type);
                     intent.putExtra("USER_NAME", user.name);
 
