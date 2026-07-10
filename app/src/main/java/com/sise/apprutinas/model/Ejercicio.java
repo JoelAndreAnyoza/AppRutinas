@@ -6,6 +6,7 @@ public class Ejercicio {
     private int videoHombre;
     private int videoMujer;
     private boolean completado;
+    private boolean personalizado;
 
     public Ejercicio(String nombre, String tiempo, String consejo, int videoHombre, int videoMujer) {
         this.nombre = nombre;
@@ -14,6 +15,14 @@ public class Ejercicio {
         this.videoHombre = videoHombre;
         this.videoMujer = videoMujer;
         this.completado = false;
+        this.personalizado = false;
+    }
+    public boolean isPersonalizado() {
+        return personalizado;
+    }
+
+    public void setPersonalizado(boolean personalizado) {
+        this.personalizado = personalizado;
     }
 
     public String getNombre() {

@@ -12,17 +12,24 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:background="@color/principal"
-            android:gravity="center">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Personalizar rutina"
                 android:textColor="@android:color/white"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:gravity="center"
+                android:paddingEnd="40dp"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -34,7 +41,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Peso"/>
+                android:text="Peso"
+                android:textColor="@color/textoPrincipal"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,19 +56,26 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="numberDecimal"
-                    android:hint="Ej: 65"/>
+                    android:hint="Ej: 65"
+                    android:textColor="@color/textoPrincipal"
+                    android:textColorHint="@color/textoSecundario"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="kg"
+                    android:textColor="@color/textoPrincipal"
                     android:padding="10dp"/>
+
             </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Altura"/>
+                android:text="Altura"
+                android:textColor="@color/textoPrincipal"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,20 +88,26 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="numberDecimal"
-                    android:hint="Ej: 1.70"/>
+                    android:hint="Ej: 1.70"
+                    android:textColor="@color/textoPrincipal"
+                    android:textColorHint="@color/textoSecundario"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="m"
+                    android:textColor="@color/textoPrincipal"
                     android:padding="10dp"/>
+
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Sexo"/>
+                android:text="Sexo"
+                android:textColor="@color/textoPrincipal"
+                android:textStyle="bold"/>
 
             <RadioGroup
                 android:id="@+id/rgSexo"
@@ -96,20 +118,25 @@
                     android:id="@+id/rbHombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hombre"/>
+                    android:text="Hombre"
+                    android:textColor="@color/textoPrincipal"/>
 
                 <RadioButton
                     android:id="@+id/rbMujer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mujer"/>
+                    android:text="Mujer"
+                    android:textColor="@color/textoPrincipal"/>
+
             </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Objetivo"/>
+                android:text="Objetivo"
+                android:textColor="@color/textoPrincipal"
+                android:textStyle="bold"/>
 
             <Spinner
                 android:id="@+id/spObjetivo"
@@ -120,7 +147,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Intensidad (Nivel)"/>
+                android:text="Intensidad (Nivel)"
+                android:textColor="@color/textoPrincipal"
+                android:textStyle="bold"/>
 
             <SeekBar
                 android:id="@+id/sbNivel"
@@ -133,6 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nivel: 1"
+                android:textColor="@color/textoPrincipal"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"/>
@@ -147,5 +177,7 @@
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>
+
     </LinearLayout>
+
 </ScrollView>

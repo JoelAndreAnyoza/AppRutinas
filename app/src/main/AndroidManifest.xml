@@ -2,6 +2,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,7 +15,7 @@
         android:theme="@style/Theme.AppRutinas">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="true">
 
             <intent-filter>
@@ -24,11 +26,11 @@
         </activity>
 
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:exported="false" />
 
         <activity
-            android:name=".HomeMockActivity"
+            android:name=".activity.HomeMockActivity"
             android:exported="false" />
 
         <activity

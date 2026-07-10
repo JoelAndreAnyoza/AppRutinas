@@ -1,4 +1,4 @@
-package com.sise.apprutinas;
+package com.sise.apprutinas.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,10 +12,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.sise.apprutinas.activity.PerfilActivity;
-import com.sise.apprutinas.activity.SeguimientoActivity;
+import com.sise.apprutinas.R;
 import com.sise.apprutinas.model.Ejercicio;
 import com.sise.apprutinas.utils.Rutinas;
+import com.sise.apprutinas.model.Frase;
+import com.sise.apprutinas.network.RetrofitFrases;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +36,8 @@ public class HomeMockActivity extends AppCompatActivity {
     LinearLayout btnInicio, btnSeguimiento, btnPerfil;
     TextView tvInicioNav;
     View lineInicio;
+
+    TextView tvFraseMotivacional;
 
     String userName, userType;
 
@@ -68,6 +75,7 @@ public class HomeMockActivity extends AppCompatActivity {
         tvDiasCompletados = findViewById(R.id.tvDiasCompletados);
         tvPorcentajeProgreso = findViewById(R.id.tvPorcentajeProgreso);
         tvListaDiasSemana = findViewById(R.id.tvListaDiasSemana);
+        tvFraseMotivacional = findViewById(R.id.tvFraseMotivacional);
         btnIniciarEntrenamiento = findViewById(R.id.btnIniciarEntrenamiento);
         pbProgresoSemana = findViewById(R.id.pbProgresoSemana);
 
@@ -94,6 +102,7 @@ public class HomeMockActivity extends AppCompatActivity {
         }
 
         cargarDatosDashboard(prefs);
+        cargarFraseMotivacional();
 
         new Handler().postDelayed(() -> {
             layoutBienvenida.setVisibility(View.GONE);
@@ -185,9 +194,8 @@ public class HomeMockActivity extends AppCompatActivity {
 
                 tvNombreRutinaHoy.setText("Rutina de " + diaSemana);
 
-                tvDetalleRutinaHoy.setText(
-                        rutinaHoy.size() + " ejercicios programados"
-                );
+                int totalEjercicios = prefs.getInt("totalEjercicios_" + userType + "_" + diaSemana, rutinaHoy.size() );
+                tvDetalleRutinaHoy.setText( totalEjercicios + " ejercicios programados");
 
                 btnIniciarEntrenamiento.setEnabled(true);
                 btnIniciarEntrenamiento.setText("Iniciar entrenamiento");
@@ -239,13 +247,34 @@ public class HomeMockActivity extends AppCompatActivity {
         tvListaDiasSemana.setText(detalleDias.toString().trim());
     }
 
+    private void cargarFraseMotivacional() {
+        RetrofitFrases.getInstance()
+                .getApiService()
+                .obtenerFrase(2)
+                .enqueue(new Callback<Frase>() {
+
+                    @Override
+                    public void onResponse(Call<Frase> call, Response<Frase> response) {
+                        if (response.isSuccessful()
+                                && response.body() != null) {
+                            Frase frase = response.body();
+                            tvFraseMotivacional.setText("\"" + frase.getText() + "\"");
+                        } else {
+                            tvFraseMotivacional.setText("Cada entrenamiento te acerca un poco más a tu meta.");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Frase> call, Throwable t) {
+                        tvFraseMotivacional.setText("La constancia convierte el esfuerzo en resultados.");
+                    }
+                });
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-
-        SharedPreferences prefs =
-                getSharedPreferences("perfil", MODE_PRIVATE);
-
+        SharedPreferences prefs = getSharedPreferences("perfil", MODE_PRIVATE);
         cargarDatosDashboard(prefs);
     }
 }

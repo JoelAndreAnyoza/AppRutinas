@@ -13,7 +13,7 @@ import com.sise.apprutinas.R;
 
 public class PerfilActivity extends AppCompatActivity {
     TextView tvPeso, tvAltura;
-    Button btnPersonalizarRutina;
+    Button btnPersonalizarRutina, btnCerrarSesion;
     LinearLayout btnInicio, btnSeguimiento, btnPerfil;
     TextView tvPerfilNav;
     View linePerfil;
@@ -38,6 +38,7 @@ public class PerfilActivity extends AppCompatActivity {
         tvPeso = findViewById(R.id.tvPeso);
         tvAltura = findViewById(R.id.tvAltura);
         btnPersonalizarRutina = findViewById(R.id.btnPersonalizarRutina);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
 
         btnInicio = findViewById(R.id.btnInicio);
         btnSeguimiento = findViewById(R.id.btnSeguimiento);
@@ -64,6 +65,21 @@ public class PerfilActivity extends AppCompatActivity {
         btnPersonalizarRutina.setOnClickListener(v -> {
             Intent intent = new Intent(PerfilActivity.this, PersonalizarActivity.class);
             startActivity(intent);
+        });
+
+        btnCerrarSesion.setOnClickListener(v -> {
+            getSharedPreferences("perfil", MODE_PRIVATE)
+                    .edit()
+                    .remove("USER_NAME")
+                    .remove("USER_TYPE")
+                    .remove("tipoUsuario")
+                    .apply();
+
+            Intent intent = new Intent(PerfilActivity.this, LoginActivity.class);
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
         });
     }
 }

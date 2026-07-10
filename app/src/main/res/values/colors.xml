@@ -19,11 +19,12 @@
    <color name="nivel_medio">#FFCC80</color>
    <color name="nivel_normal">#90CAF9</color>
    <color name="nivel_pro">#CE93D8</color>
-    <!--COLORES MODULO 3-->
 
    <color name="fondo">#EEF3F6</color>
    <color name="principal">#0E5A6F</color>
    <color name="texto">#27323F</color>
+
+   <color name="ic_launcher_background">#2196F3</color>
 
 
 

@@ -14,11 +14,15 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Color;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.sise.apprutinas.R;
 
 public class PersonalizarActivity extends AppCompatActivity {
     TextView tvNivel;
+    RadioButton rbHombre, rbMujer;
     EditText etPeso, etAltura;
     SeekBar sbNivel;
     Spinner spObjetivo;
@@ -41,12 +45,22 @@ public class PersonalizarActivity extends AppCompatActivity {
         }
 
         tvNivel = findViewById(R.id.tvNivel);
+
+        rbHombre = findViewById(R.id.rbHombre);
+        rbMujer = findViewById(R.id.rbMujer);
         etPeso = findViewById(R.id.etPeso);
         etAltura = findViewById(R.id.etAltura);
         sbNivel = findViewById(R.id.sbNivel);
         spObjetivo = findViewById(R.id.spObjetivo);
         rgSexo = findViewById(R.id.rgSexo);
         btnGuardar = findViewById(R.id.btnGuardar);
+        tvNivel.setTextColor(Color.BLACK);
+        etPeso.setTextColor(Color.BLACK);
+        etAltura.setTextColor(Color.BLACK);
+        etPeso.setHintTextColor(Color.DKGRAY);
+        etAltura.setHintTextColor(Color.DKGRAY);
+        rbHombre.setTextColor(Color.BLACK);
+        rbMujer.setTextColor(Color.BLACK);
 
         cargarObjetivos();
 
@@ -72,9 +86,11 @@ public class PersonalizarActivity extends AppCompatActivity {
                     tvNivel.setText("Nivel: " + nivelSeleccionado);
                 }
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
@@ -88,9 +104,28 @@ public class PersonalizarActivity extends AppCompatActivity {
                 "Ganar masa muscular"
         };
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, objetivos);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, objetivos) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView texto = (TextView) super.getView(position, convertView, parent);
+                texto.setTextColor(Color.BLACK);
+                texto.setTextSize(16);
+                return texto;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                TextView texto = (TextView) super.getDropDownView(position, convertView, parent);
+                texto.setTextColor(Color.BLACK);
+                texto.setBackgroundColor(Color.WHITE);
+                return texto;
+            }
+        };
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spObjetivo.setAdapter(adapter);
     }
+
     private void mostrarResumen() {
         String peso = etPeso.getText().toString().trim();
         String altura = etAltura.getText().toString().trim();

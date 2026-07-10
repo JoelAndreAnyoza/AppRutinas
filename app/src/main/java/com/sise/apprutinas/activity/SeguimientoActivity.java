@@ -1,6 +1,9 @@
 package com.sise.apprutinas.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.view.ViewGroup;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import android.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,7 +33,7 @@ import com.sise.apprutinas.model.Ejercicio;
 import com.sise.apprutinas.R;
 import com.sise.apprutinas.utils.Rutinas;
 
-public class    SeguimientoActivity extends AppCompatActivity {
+public class SeguimientoActivity extends AppCompatActivity {
     Spinner spinnerDia;
     TextView tvNivelSeleccionado;
     TextView tvCompletado, tvProgreso;
@@ -38,7 +43,7 @@ public class    SeguimientoActivity extends AppCompatActivity {
     View lineSeguimiento;
     LinearLayout contEjercicios;
     int nivelSeleccionado;
-    String sexo;
+    String sexo, tipoUsuario;
     ArrayList<Ejercicio> rutina = new ArrayList<>();
     ArrayList<Ejercicio> listaEjerciciosCompletos = new ArrayList<>();
     ArrayList<String> listaEjercicios = new ArrayList<>();
@@ -77,7 +82,7 @@ public class    SeguimientoActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        String tipoUsuario = getSharedPreferences("perfil", MODE_PRIVATE).getString("tipoUsuario", "GRATUITO");
+        tipoUsuario = getSharedPreferences("perfil", MODE_PRIVATE).getString("tipoUsuario", "GRATUITO");
         if (tipoUsuario.equals("GRATUITO")) {
             btnAgregarEjercicio.setEnabled(false);
             btnAgregarEjercicio.setText("Agregar ejercicio Premium 🔒");
@@ -95,11 +100,27 @@ public class    SeguimientoActivity extends AppCompatActivity {
                 "Domingo"
         };
 
-        ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dias);
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, dias) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView texto = (TextView) super.getView(position, convertView, parent);
+                texto.setTextColor(Color.BLACK);
+                texto.setTextSize(16);
+                return texto;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                TextView texto = (TextView) super.getDropDownView(position, convertView, parent);
+                texto.setTextColor(Color.BLACK);
+                texto.setBackgroundColor(Color.WHITE);
+                return texto;
+            }
+        };
 
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinnerDia.setAdapter(adaptador);
+
         nivelSeleccionado = getSharedPreferences("perfil", MODE_PRIVATE).getInt("nivelRutina",1);
         sexo = getSharedPreferences("perfil", MODE_PRIVATE).getString("sexo", "Mujer");
 
@@ -111,17 +132,17 @@ public class    SeguimientoActivity extends AppCompatActivity {
         spinnerDia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                String clave = nivelSeleccionado + "-" + dias[position];
+                String diaSeleccionado = dias[position];
+                String clave = nivelSeleccionado + "-" + diaSeleccionado;
                 if (rutinasGuardadas.containsKey(clave)) {
                     rutina = rutinasGuardadas.get(clave);
                 } else {
-                    rutina = Rutinas.obtenerRutina(nivelSeleccionado, dias[position]);
+                    rutina = Rutinas.obtenerRutina(nivelSeleccionado, diaSeleccionado);
+                    cargarEjerciciosPersonales(diaSeleccionado);
                     rutinasGuardadas.put(clave, rutina);
                 }
 
                 mostrarRutina();
-
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -170,6 +191,8 @@ public class    SeguimientoActivity extends AppCompatActivity {
 
         contEjercicios.removeAllViews();
         tvCompletado.setText("");
+        final String diaSeleccionado = spinnerDia.getSelectedItem().toString();
+
         int etapa = 1;
         for (Ejercicio ejercicio : rutina) {
             View vista = getLayoutInflater().inflate(R.layout.item_ejercicio, null);
@@ -179,7 +202,12 @@ public class    SeguimientoActivity extends AppCompatActivity {
             TextView tvTips = vista.findViewById(R.id.tvTips);
             VideoView video = vista.findViewById(R.id.videoEjercicio);
             CheckBox check = vista.findViewById(R.id.cbEjercicioCompletado);
-            check.setChecked(ejercicio.isCompletado());
+            TextView tvEliminar = vista.findViewById(R.id.tvEliminar);
+            SharedPreferences preferencias = getSharedPreferences("perfil", MODE_PRIVATE);
+            boolean marcado = preferencias.getBoolean("check_" + nivelSeleccionado + "_" + diaSeleccionado + "_" + ejercicio.getNombre(), false );
+
+            ejercicio.setCompletado(marcado);
+            check.setChecked(marcado);
             if (ejercicio.isCompletado()) {
                 tvNombre.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
             } else {
@@ -189,6 +217,30 @@ public class    SeguimientoActivity extends AppCompatActivity {
             tvNombre.setText("Etapa " + etapa + " - " + ejercicio.getNombre());
             tvTiempo.setText("Tiempo: " + ejercicio.getTiempo());
             tvTips.setText("Consejo: " + ejercicio.getConsejo());
+
+            if (ejercicio.isPersonalizado()) {
+                tvEliminar.setVisibility(View.VISIBLE);
+                tvEliminar.setOnClickListener(v -> {
+                    String diaActual = spinnerDia.getSelectedItem().toString();
+                    Set<String> guardados = preferencias.getStringSet("ejerciciosPersonales_" + tipoUsuario + "_" + diaActual, new HashSet<>());
+                    Set<String> actualizados = new HashSet<>(guardados);
+                    actualizados.remove(ejercicio.getNombre());
+                    preferencias.edit().putStringSet("ejerciciosPersonales_" + tipoUsuario + "_" + diaActual, actualizados)
+                            .putInt("totalEjercicios_" + tipoUsuario + "_" + diaActual, rutina.size() - 1)
+                            .remove("check_" + nivelSeleccionado + "_" + diaActual + "_" + ejercicio.getNombre())
+                            .apply();
+
+                    rutina.remove(ejercicio);
+                    mostrarRutina();
+
+                    Toast.makeText(SeguimientoActivity.this, "Has eliminado: " + ejercicio.getNombre(), Toast.LENGTH_SHORT)
+                            .show();
+                });
+
+            } else {
+                tvEliminar.setVisibility(View.GONE);
+            }
+
             int videoEjercicio;
 
             if (sexo.equals("Hombre")) {
@@ -206,19 +258,30 @@ public class    SeguimientoActivity extends AppCompatActivity {
 
             check.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 ejercicio.setCompletado(isChecked);
+                String diaActual = spinnerDia.getSelectedItem().toString();
+                getSharedPreferences("perfil", MODE_PRIVATE)
+                        .edit()
+                        .putBoolean("check_" + nivelSeleccionado + "_" + diaActual + "_" + ejercicio.getNombre(), isChecked )
+                        .apply();
 
                 if (isChecked) {
                     tvNombre.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
                 } else {
                     tvNombre.setTextColor(getResources().getColor(R.color.textoPrincipal));
                 }
-                
+
                 verificarRutinaCompletada();
             });
 
             contEjercicios.addView(vista);
             etapa++;
         }
+
+        getSharedPreferences("perfil", MODE_PRIVATE)
+                .edit()
+                .putInt("totalEjercicios_" + tipoUsuario + "_" + diaSeleccionado, rutina.size())
+                .apply();
+
         verificarRutinaCompletada();
     }
     private void verificarRutinaCompletada() {
@@ -291,7 +354,8 @@ public class    SeguimientoActivity extends AppCompatActivity {
             }
         });
 
-        AlertDialog dialogo = ventana.create();
+
+        AlertDialog dialogo= ventana.create();
         lista.setOnItemClickListener((parent, view, position, id) -> {
             String nombre = parent.getItemAtPosition(position).toString();
             agregarEjercicioPersonal(nombre);
@@ -301,10 +365,47 @@ public class    SeguimientoActivity extends AppCompatActivity {
         dialogo.show();
     }
     private void agregarEjercicioPersonal(String nombre) {
-        Ejercicio ejercicio = buscarEjercicio(nombre);
-        if (ejercicio != null) {
+        Ejercicio ejercicioBase = buscarEjercicio(nombre);
+        if (ejercicioBase != null) {
+            Ejercicio ejercicio = new Ejercicio(
+                    ejercicioBase.getNombre(),
+                    ejercicioBase.getTiempo(),
+                    ejercicioBase.getConsejo(),
+                    ejercicioBase.getVideoHombre(),
+                    ejercicioBase.getVideoMujer()
+            );
+
+            ejercicio.setPersonalizado(true);
             rutina.add(ejercicio);
+            String diaSeleccionado = spinnerDia.getSelectedItem().toString();
+            SharedPreferences preferencias = getSharedPreferences("perfil", MODE_PRIVATE);
+            Set<String> guardados = preferencias.getStringSet("ejerciciosPersonales_" + tipoUsuario + "_" + diaSeleccionado, new HashSet<>());
+            Set<String> nuevosGuardados = new HashSet<>(guardados);
+            nuevosGuardados.add(nombre);
+
+            preferencias.edit().putStringSet("ejerciciosPersonales_" + tipoUsuario + "_" + diaSeleccionado, nuevosGuardados)
+                    .putInt("totalEjercicios_" + diaSeleccionado, rutina.size())
+                    .apply();
             mostrarRutina();
+        }
+    }
+    private void cargarEjerciciosPersonales(String dia) {
+        SharedPreferences preferencias = getSharedPreferences("perfil", MODE_PRIVATE);
+        Set<String> guardados = preferencias.getStringSet("ejerciciosPersonales_" + tipoUsuario + "_" + dia, new HashSet<>());
+        for (String nombre : guardados) {
+            Ejercicio ejercicioBase = buscarEjercicio(nombre);
+            if (ejercicioBase != null) {
+                Ejercicio ejercicio = new Ejercicio(
+                        ejercicioBase.getNombre(),
+                        ejercicioBase.getTiempo(),
+                        ejercicioBase.getConsejo(),
+                        ejercicioBase.getVideoHombre(),
+                        ejercicioBase.getVideoMujer()
+                );
+
+                ejercicio.setPersonalizado(true);
+                rutina.add(ejercicio);
+            }
         }
     }
     private Ejercicio buscarEjercicio(String nombre) {

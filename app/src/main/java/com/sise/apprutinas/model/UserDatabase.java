@@ -1,4 +1,4 @@
-package com.sise.apprutinas;
+package com.sise.apprutinas.model;
 
 import java.util.ArrayList;
 import java.util.List;
