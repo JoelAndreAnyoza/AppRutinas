@@ -24,18 +24,6 @@
 
 ---
 
-##  Estructura del Proyecto
-
-app/src/main/
-├── java/com/sise/apprutinas/
-│   ├── activity/          # Controladores de pantalla (Home, Login, Register, etc.)
-│   ├── model/             # Modelo de datos (Ejercicio)
-│   ├── network/           # Consumo de API
-│   ├── utils/             # Clases auxiliares y listas precargadas (Rutinas)
-└── res/                   # Diseños XML y recursos gráficos
-
----
-
 ###  Credenciales de Prueba
 
 Para probar las funcionalidades de la aplicación sin registrarte, puedes usar las siguientes cuentas precargadas:
